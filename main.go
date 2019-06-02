@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./gohunspell"
+	"./binding"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -10,7 +10,7 @@ import (
 
 func main()  {
 
-	file, err := os.Open("./gohunspell/include/dictionaries/fr_FR.aff")
+	file, err := os.Open("./binding/include/dictionaries/fr_FR.aff")
 	if err != nil {
 		os.Exit(0)
 	}
@@ -19,7 +19,7 @@ func main()  {
 		os.Exit(0)
 	}
 	file.Close()
-	file, err = os.Open("./gohunspell/include/dictionaries/fr_FR.dic")
+	file, err = os.Open("./binding/include/dictionaries/fr_FR.dic")
 	if err != nil {
 		os.Exit(0)
 	}

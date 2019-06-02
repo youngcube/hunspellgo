@@ -7,5 +7,5 @@
 ### VS Code ###
 .vscode/
 
-gohunspell/obj/*
-gohunspell/lib/*
+binding/obj/*
+binding/lib/*
