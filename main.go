@@ -10,19 +10,22 @@ import (
 	//"./binding"
 	//"fmt"
 	"golang.org/x/net/context"
-	pb "google.golang.org/grpc/examples/helloworld/helloworld"
+	//pb "google.golang.org/grpc/examples/helloworld/helloworld"
 )
 
 const (
 	port = ":50051"
 )
 
-// server is used to implement helloworld.GreeterServer.
 type server struct{}
 
 // SayHello implements helloworld.GreeterServer
-func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
-	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
+func (s *server) StemWord(ctx context.Context, in *HunspellRequest) (*HunspellReply, error) {
+	return &HunspellReply{WordList:StemWord("allons", "fr")}, nil
+}
+
+func (s *server) Suggestion(ctx context.Context, in *HunspellRequest) (*HunspellReply, error) {
+	return &HunspellReply{WordList:StemWord("allons", "fr")}, nil
 }
 
 func main()  {
@@ -44,7 +47,7 @@ func main()  {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterGreeterServer(s, &server{})
+	RegisterHunspellServer(s, &server{})
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
