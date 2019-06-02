@@ -2,19 +2,15 @@ package main
 
 import (
 	"fmt"
+	"google.golang.org/grpc"
+	"log"
+	"net"
 	"time"
 
 	//"./binding"
 	//"fmt"
-	//"golang.org/x/net/context"
-	//"google.golang.org/grpc"
-	//pb "google.golang.org/grpc/examples/helloworld/helloworld"
-	//"io/ioutil"
-	//"log"
-	//"net"
-	//"os"
-	//"time"
-	//"log"
+	"golang.org/x/net/context"
+	pb "google.golang.org/grpc/examples/helloworld/helloworld"
 )
 
 const (
@@ -25,10 +21,9 @@ const (
 type server struct{}
 
 // SayHello implements helloworld.GreeterServer
-//func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
-//	log.Printf("Received: %v", in.Name)
-//	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
-//}
+func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
+}
 
 func main()  {
 
@@ -44,13 +39,13 @@ func main()  {
 	fmt.Println(list)
 	fmt.Println("App elapsed: ", elapsed)
 
-	//lis, err := net.Listen("tcp", port)
-	//if err != nil {
-	//	log.Fatalf("failed to listen: %v", err)
-	//}
-	//s := grpc.NewServer()
-	//pb.RegisterGreeterServer(s, &server{})
-	//if err := s.Serve(lis); err != nil {
-	//	log.Fatalf("failed to serve: %v", err)
-	//}
+	lis, err := net.Listen("tcp", port)
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+	s := grpc.NewServer()
+	pb.RegisterGreeterServer(s, &server{})
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf("failed to serve: %v", err)
+	}
 }
