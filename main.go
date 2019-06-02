@@ -1,39 +1,56 @@
 package main
 
 import (
-	"./binding"
 	"fmt"
-	"io/ioutil"
-	"os"
 	"time"
+
+	//"./binding"
+	//"fmt"
+	//"golang.org/x/net/context"
+	//"google.golang.org/grpc"
+	//pb "google.golang.org/grpc/examples/helloworld/helloworld"
+	//"io/ioutil"
+	//"log"
+	//"net"
+	//"os"
+	//"time"
+	//"log"
 )
+
+const (
+	port = ":50051"
+)
+
+// server is used to implement helloworld.GreeterServer.
+type server struct{}
+
+// SayHello implements helloworld.GreeterServer
+//func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+//	log.Printf("Received: %v", in.Name)
+//	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
+//}
 
 func main()  {
 
-	file, err := os.Open("./binding/include/dictionaries/fr_FR.aff")
-	if err != nil {
-		os.Exit(0)
-	}
-	aff, e := ioutil.ReadAll(file)
-	if e != nil {
-		os.Exit(0)
-	}
-	file.Close()
-	file, err = os.Open("./binding/include/dictionaries/fr_FR.dic")
-	if err != nil {
-		os.Exit(0)
-	}
-	dic, e2 := ioutil.ReadAll(file)
-	file.Close()
-	if e2 != nil {
-		os.Exit(0)
-	}
-
-	spell := Gohunspell.NewGohunspell(aff, dic)
-	t1 := time.Now() // get current time
-	count, list := spell.Stem("allons")
+	t1 := time.Now()
+	list := StemWord("allons", "fr")
 	elapsed := time.Since(t1)
-	fmt.Println(count)
 	fmt.Println(list)
 	fmt.Println("App elapsed: ", elapsed)
+
+	t1 = time.Now()
+	list = Suggest("internation", "en")
+	elapsed = time.Since(t1)
+	fmt.Println(list)
+	fmt.Println("App elapsed: ", elapsed)
+
+	//lis, err := net.Listen("tcp", port)
+	//if err != nil {
+	//	log.Fatalf("failed to listen: %v", err)
+	//}
+	//s := grpc.NewServer()
+	//pb.RegisterGreeterServer(s, &server{})
+	//if err := s.Serve(lis); err != nil {
+	//	log.Fatalf("failed to serve: %v", err)
+	//}
 }

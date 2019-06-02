@@ -1,4 +1,4 @@
-package Gohunspell
+package binding
 
 /*
 #cgo LDFLAGS: -L${SRCDIR}/lib -lhunspell -lstdc++ -lm
