@@ -12,13 +12,7 @@
 #ifdef MOZILLA_CLIENT
 #include "nscore.h" // for mozalloc headers
 #endif
-// Unicode character encoding information
-// Unicode character encoding information
-struct unicode_info {
-    unsigned short c;
-    unsigned short cupper;
-    unsigned short clower;
-};
+
 // casing
 #define NOCAP   0
 #define INITCAP 1

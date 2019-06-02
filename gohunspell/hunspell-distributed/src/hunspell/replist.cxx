@@ -32,7 +32,7 @@ replentry * RepList::item(int n) {
     return dat[n];
 }
 
-int RepList::nearhtml(const char * word) {
+int RepList::near(const char * word) {
     int p1 = 0;
     int p2 = pos;
     while ((p2 - p1) > 1) {
@@ -73,7 +73,7 @@ int RepList::conv(const char * word, char * dest) {
     int stl = 0;
     int change = 0;
     for (size_t i = 0; i < strlen(word); i++) {
-        int n = nearhtml(word + i);
+        int n = near(word + i);
         int l = match(word + i, n);
         if (l) {
           strcpy(dest + stl, dat[n]->pattern2);

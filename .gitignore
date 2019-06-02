@@ -6,3 +6,6 @@
 
 ### VS Code ###
 .vscode/
+
+gohunspell/obj/*
+gohunspell/lib/*
