@@ -5,8 +5,7 @@
 #
 #RUN ls -la $GOPATH/src/hunspellgo/*
 #
-##ENV HTTP_PROXY http://127.0.0.1:8118
-##ENV HTTPS_PROXY http://127.0.0.1:8118
+
 #
 #RUN git config --global http.postBuffer 1048576000
 #
@@ -17,7 +16,20 @@
 #EXPOSE 50052
 #ENTRYPOINT ["./hunspellgo"]
 
-FROM golang:1.12.5-alpine3.9
-ADD hunspellgo /
-EXPOSE 50052
-CMD ["/hunspellgo"]
+FROM golang:1.12.5 AS build
+RUN  mkdir -p /go/src \
+  && mkdir -p /go/bin \
+  && mkdir -p /go/pkg
+ENV GOPATH=/go
+ENV PATH=$GOPATH/bin:$PATH
+RUN mkdir -p $GOPATH/src/app
+COPY ./src $GOPATH/src/app
+WORKDIR $GOPATH/src/app
+RUN ls -al
+RUN go build -o myapp .
+
+
+FROM alpine:latest
+WORKDIR /myapp
+COPY --from=builder /myapp .
+CMD ["./myapp"]

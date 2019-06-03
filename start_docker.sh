@@ -7,8 +7,6 @@ rm -rf lib
 rm -rf obj
 cd ../..
 
-
-
 docker build -t eudic-hunspell .
 docker container stop hunspell-server
 docker container rm hunspell-server
