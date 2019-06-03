@@ -171,7 +171,7 @@ func (g *Gohunspell) Generate(word1, word2 string) (int, []string) {
 }
 
 // Analyze returns a custom array of the morphological information and possibilities
-// of a given word. Consult the hunspell docs for further understanding.
+// of a given word. Consult the spellcheck docs for further understanding.
 func (g *Gohunspell) Analyze(word string) (int, []string) {
 	w := C.CString(word)
 	defer C.free(unsafe.Pointer(w))

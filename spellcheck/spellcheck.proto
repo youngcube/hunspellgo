@@ -1,0 +1,27 @@
+syntax = "proto3";
+package spellcheck;
+
+service Hunspell {
+  rpc StemWord (StemRequest) returns (WordListReply) {}
+  rpc StemLine (StemRequest) returns (StemLineReply) {}
+  rpc Suggestion (SuggestionRequest) returns (WordListReply) {}
+}
+
+message StemRequest {
+  string word = 1;
+  string lang = 2;
+}
+
+message SuggestionRequest {
+  string word = 1;
+  string lang = 2;
+  int32 count = 3;
+}
+
+message WordListReply {
+  repeated string wordList = 1;
+}
+
+message StemLineReply {
+  string result = 1;
+}

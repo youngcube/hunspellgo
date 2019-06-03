@@ -1,9 +1,10 @@
-package main
+package spellcheck
 
 import (
-	"./binding"
+	"../binding"
 	"io/ioutil"
 	"os"
+	"strings"
 )
 
 var stemMap map[string]*binding.Gohunspell
@@ -55,8 +56,28 @@ func StemWord(word string, lang string)[]string {
 	return list
 }
 
-func Suggest(word string, lang string)[]string {
+func Suggest(word string, lang string, count int32)[]string {
+	if len(word) > 20 || strings.Contains(word, " ") {
+		return []string{}
+	}
 	speller := suggestMap[lang]
-	_, _, list := speller.CheckSuggestions(word)
+	_, suggCount, list := speller.CheckSuggestions(word)
+	if int32(suggCount) > count {
+		list = list[:count]
+	}
 	return list
+}
+
+func StemLine(word string, lang string)string {
+	list := strings.Split(word, "\r\n.,;?: \"")
+	result := ""
+	for _, item := range list{
+		stem := StemWord(item, lang)
+		if stem != nil && len(stem) > 0 {
+			result += stem[0] + " "
+		}else{
+			result += item + " "
+		}
+	}
+	return strings.TrimSpace(result)
 }
