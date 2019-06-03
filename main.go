@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 	"log"
 	"net"
 	"time"
@@ -19,7 +20,6 @@ const (
 
 type server struct{}
 
-// SayHello implements helloworld.GreeterServer
 func (s *server) StemWord(ctx context.Context, in *HunspellRequest) (*HunspellReply, error) {
 	return &HunspellReply{WordList:StemWord("allons", "fr")}, nil
 }
@@ -36,6 +36,9 @@ func main()  {
 	fmt.Println(list)
 	fmt.Println("App elapsed: ", elapsed)
 
+	//51.5微秒 C#
+	//58.365微秒 Go
+
 	t1 = time.Now()
 	list = Suggest("internation", "en")
 	elapsed = time.Since(t1)
@@ -46,9 +49,19 @@ func main()  {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	s := grpc.NewServer()
+
+	//certFile := "/Users/eusoft/SourceTree/sslkeys/server.pem"
+	//keyFile := "/Users/eusoft/SourceTree/sslkeys/server.key"
+
+	c, err := credentials.NewServerTLSFromFile("/Users/eusoft/SourceTree/sslkeys/server.pem", "/Users/eusoft/SourceTree/sslkeys/server.key")
+	if err != nil {
+		log.Fatalf("credentials.NewServerTLSFromFile err: %v", err)
+	}
+
+	s := grpc.NewServer(grpc.Creds(c))
 	RegisterHunspellServer(s, &server{})
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
+	s.Serve(lis)
 }
