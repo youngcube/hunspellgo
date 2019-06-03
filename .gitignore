@@ -7,5 +7,5 @@
 ### VS Code ###
 .vscode/
 
-binding/obj/*
-binding/lib/*
+src/binding/obj/*
+src/binding/lib/*
