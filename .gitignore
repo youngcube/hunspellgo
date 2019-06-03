@@ -9,3 +9,4 @@
 
 src/binding/obj/*
 src/binding/lib/*
+vendor/

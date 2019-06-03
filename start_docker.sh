@@ -1,6 +1,13 @@
 #!/bin/sh
 
-protoc ./spellcheck/spellcheck.proto --go_out=plugins=grpc:.
+protoc ./src/spellcheck/spellcheck.proto --go_out=plugins=grpc:.
+
+cd src/binding
+rm -rf lib
+rm -rf obj
+cd ../..
+
+
 
 docker build -t eudic-hunspell .
 docker container stop hunspell-server
