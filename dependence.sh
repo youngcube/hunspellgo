@@ -9,5 +9,9 @@ go get -u -v github.com/tpng/gopkgs
 go get -u -v github.com/newhook/go-symbols
 go get -u -v github.com/ramya-rao-a/go-outline
 go get -u -v github.com/go-delve/delve/cmd/dlv
+go get -u -v github.com/mdempsky/gocode
+go get -u -v golang.org/x/tools/cmd/guru
+go get -u -v github.com/stamblerre/gocod
+go get -u -v golang.org/x/lint/golint
 
 brew install grpc protobuf glide
