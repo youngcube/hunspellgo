@@ -1,0 +1,28 @@
+{
+  "files.autoSave": "onFocusChange",
+  "search.exclude": {
+    "**/node_modules": false,
+  },
+  "markdownlint.run": "onSave",
+  "markdownlint.config": {
+    "MD013": false,
+    "MD040": false
+  },
+  "files.eol": "\n",
+  "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "editor.tabSize": 2,
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "prettier.eslintIntegration": true,
+  "prettier.arrowParens": "avoid",
+  "prettier.bracketSpacing": true,
+  "prettier.ignorePath": ".prettierignore",
+  "prettier.jsxBracketSameLine": false,
+  "prettier.printWidth": 80,
+  "prettier.proseWrap": "preserve",
+  "prettier.requireConfig": false,
+  "prettier.tabWidth": 2,
+  "prettier.tslintIntegration": false,
+  "prettier.useTabs": false,
+  "editor.formatOnSave": true,
+}

@@ -1,11 +1,12 @@
 package main
 
 import (
+	"log"
+	"net"
+
 	"./spellcheck"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	"log"
-	"net"
 )
 
 const port = ":50052"
@@ -21,10 +22,10 @@ func (s *server) StemLine(ctx context.Context, req *spellcheck.StemRequest) (*sp
 }
 
 func (s *server) Suggestion(ctx context.Context, req *spellcheck.SuggestionRequest) (*spellcheck.WordListReply, error) {
-	return &spellcheck.WordListReply{WordList:spellcheck.Suggest(req.Word, req.Lang, req.Count)}, nil
+	return &spellcheck.WordListReply{WordList: spellcheck.Suggest(req.Word, req.Lang, req.Count)}, nil
 }
 
-func main()  {
+func main() {
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)

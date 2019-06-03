@@ -1,10 +1,11 @@
 package spellcheck
 
 import (
-	"../binding"
 	"io/ioutil"
 	"os"
 	"strings"
+
+	"../binding"
 )
 
 var stemMap map[string]*binding.Gohunspell
@@ -25,7 +26,7 @@ func init() {
 	initHunspellLang(suggestMap, "es", "es_ANY.aff", "es_ANY.dic")
 }
 
-func initHunspellLang(cacheMap map[string]*binding.Gohunspell, lang string, affFile string, dicFile string)  {
+func initHunspellLang(cacheMap map[string]*binding.Gohunspell, lang string, affFile string, dicFile string) {
 	file, err := os.Open("./binding/include/dictionaries/" + affFile)
 	if err != nil {
 		return
@@ -50,13 +51,13 @@ func initHunspellLang(cacheMap map[string]*binding.Gohunspell, lang string, affF
 	cacheMap[lang] = binding.NewGohunspell(aff, dic)
 }
 
-func StemWord(word string, lang string)[]string {
+func StemWord(word string, lang string) []string {
 	speller := stemMap[lang]
 	_, list := speller.Stem(word)
 	return list
 }
 
-func Suggest(word string, lang string, count int32)[]string {
+func Suggest(word string, lang string, count int32) []string {
 	if len(word) > 20 || strings.Contains(word, " ") {
 		return []string{}
 	}
@@ -68,14 +69,14 @@ func Suggest(word string, lang string, count int32)[]string {
 	return list
 }
 
-func StemLine(word string, lang string)string {
+func StemLine(word string, lang string) string {
 	list := strings.Split(word, "\r\n.,;?: \"")
 	result := ""
-	for _, item := range list{
+	for _, item := range list {
 		stem := StemWord(item, lang)
 		if stem != nil && len(stem) > 0 {
 			result += stem[0] + " "
-		}else{
+		} else {
 			result += item + " "
 		}
 	}

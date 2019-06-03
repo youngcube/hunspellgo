@@ -4,8 +4,6 @@
 *.iml
 *.ipr
 
-### VS Code ###
-.vscode/
 
 src/binding/obj/*
 src/binding/lib/*
