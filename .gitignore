@@ -1,5 +1,7 @@
 ### IntelliJ IDEA ###
-.idea
+.idea/workspace.xml
+.idea/usage.statistics.xml
+.idea/tasks.xml
 *.iws
 *.iml
 *.ipr
